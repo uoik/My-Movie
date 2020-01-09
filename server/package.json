@@ -1,0 +1,15 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "rd /s /q dist & tsc",
+    "dev": "nodemon --watch src -e ts --exec ts-node src/index.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^13.1.5",
+    "tslint": "^5.20.1",
+    "typescript": "^3.7.4"
+  }
+}

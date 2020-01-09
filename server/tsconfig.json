@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+      "target": "es2016", // 编译版本
+      "module": "commonjs", // 模块化
+      "outDir": "./dist", // 输出路径
+      "experimentalDecorators": true, // 开启ES7实验装饰器功能
+      "emitDecoratorMetadata": true, // 输出装饰器元数据
+      "strictNullChecks": true, // 开启严格的空检查
+      "removeComments": true, // 清除注释
+      "noEmitOnError": true, // 当TS有错误不进行编译
+      "esModuleInterop": true, // 
+      "lib": ["esnext"] // 当前环境
+  },
+  "include": ["./src"] // 读取目录下的TS文件
+}
