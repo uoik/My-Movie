@@ -8,6 +8,7 @@
     "dev": "nodemon --watch src -e ts --exec ts-node src/index.ts"
   },
   "devDependencies": {
+    "@types/mongoose": "^5.5.41",
     "@types/node": "^13.1.5",
     "tslint": "^5.20.1",
     "typescript": "^3.7.4"
@@ -15,6 +16,7 @@
   "dependencies": {
     "class-transformer": "^0.2.3",
     "class-validator": "^0.11.0",
+    "mongoose": "^5.8.7",
     "reflect-metadata": "^0.1.13"
   }
 }
