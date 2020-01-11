@@ -7,7 +7,9 @@
     "rules": {
         "no-empty": true,
         "no-console": false,
-        "interface-name": true
+        "interface-name": true,
+        "ordered-imports": false,
+        "arrow-parens": false
     },
     "rulesDirectory": []
 }
