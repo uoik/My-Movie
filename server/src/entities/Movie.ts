@@ -1,9 +1,10 @@
 import { IsNotEmpty, ArrayMinSize, IsInt, Min, Max, IsArray, validate } from "class-validator";
 import "reflect-metadata";
 import { Type, plainToClass } from "class-transformer";
+import { BaseEnitity } from "./BaseEnitity";
 
 // 开发电影实体类
-export class Movie {
+export class Movie extends BaseEnitity {
     @IsNotEmpty({ message: "电影名称不能为空" })
     @Type(() => String)
     public name: string;
@@ -44,28 +45,10 @@ export class Movie {
     public poster?: string; // 影片海报图片
 
     /**
-     * 验证当前对象数据
-     * @param skip 跳过未定义的属性
-     */
-    public async validateThis(skip = false): Promise<string[]> {
-        const error = await validate(this, {
-            skipUndefinedProperties: skip
-        });
-        const temp: string[] = [];
-        if (error.length > 0) {
-            error.map(it => Object.values(it.constraints)).forEach(it => temp.push(...it));
-        }
-        return temp;
-    }
-
-    /**
      * 将平面对象转换成Movie类
      * @param plainObj 平面对象
      */
     public static transform(plainObj: object): Movie {
-        if (plainObj instanceof Movie) {
-            return plainObj;
-        }
-        return plainToClass(Movie, plainObj);
+        return super.baseTransform(Movie, plainObj);
     }
 }

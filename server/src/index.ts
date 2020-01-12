@@ -18,6 +18,25 @@ import { MovieService } from "./services/MovieService";
 //     }
 // });
 
+// for (let i = 0; i < 100; i++) {
+//     const m: any = {
+//         name: '电影名称' + i,
+//         types: ['科幻'],
+//         areas: ['中国大陆'],
+//         timing: 120,
+//         hot: i % 2 > 0,
+//         soon: i % 3 > 0,
+//         classics: i % 4 > 0
+//     };
+
+//     MovieService.add(m).then(result => {
+//         if (Array.isArray(result)) {
+//             console.log(result);
+//         }
+//     });
+// }
+// console.log('完成');
+
 // const m: any = {
 //     name: '撕裂末日'
 // };
@@ -39,4 +58,14 @@ import { MovieService } from "./services/MovieService";
 
 // MovieService.remove("5e1ad60b87a8c82688aa3fd0").then(() => {
 //     console.log("删除成功");
+// });
+
+// const searchCondition: any = {
+//     page: 1,
+//     limit: 5,
+//     key: '0'
+// };
+
+// MovieService.find(searchCondition).then(result => {
+//     console.log(result);
 // });
