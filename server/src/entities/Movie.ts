@@ -1,6 +1,6 @@
-import { IsNotEmpty, ArrayMinSize, IsInt, Min, Max, IsArray } from "class-validator";
+import { IsNotEmpty, ArrayMinSize, IsInt, Min, Max, IsArray, validate } from "class-validator";
 import "reflect-metadata";
-import { Type } from "class-transformer";
+import { Type, plainToClass } from "class-transformer";
 
 // 开发电影实体类
 export class Movie {
@@ -29,17 +29,43 @@ export class Movie {
 
     @IsNotEmpty({ message: "是否热映不能为空" })
     @Type(() => Boolean)
-    public hot: boolean = false; // 是否正在热映
+    public hot: boolean; // 是否正在热映
 
     @IsNotEmpty({ message: "是否即将上映不能为空" })
     @Type(() => Boolean)
-    public soon: boolean = false; // 即将上映
+    public soon: boolean; // 即将上映
 
     @IsNotEmpty({ message: "是否为经典影片不能为空" })
     @Type(() => Boolean)
-    public classics: boolean = false; // 经典影片
+    public classics: boolean; // 经典影片
 
     public description?: string; // 影片简介
 
     public poster?: string; // 影片海报图片
+
+    /**
+     * 验证当前对象数据
+     * @param skip 跳过未定义的属性
+     */
+    public async validateThis(skip = false): Promise<string[]> {
+        const error = await validate(this, {
+            skipUndefinedProperties: skip
+        });
+        const temp: string[] = [];
+        if (error.length > 0) {
+            error.map(it => Object.values(it.constraints)).forEach(it => temp.push(...it));
+        }
+        return temp;
+    }
+
+    /**
+     * 将平面对象转换成Movie类
+     * @param plainObj 平面对象
+     */
+    public static transform(plainObj: object): Movie {
+        if (plainObj instanceof Movie) {
+            return plainObj;
+        }
+        return plainToClass(Movie, plainObj);
+    }
 }

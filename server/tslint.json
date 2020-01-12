@@ -11,7 +11,9 @@
         "ordered-imports": false,
         "arrow-parens": false,
         "trailing-comma": false,
-        "object-literal-sort-keys": false
+        "object-literal-sort-keys": false,
+        "quotemark": false,
+        "member-ordering": false
     },
     "rulesDirectory": []
 }

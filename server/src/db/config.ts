@@ -1,3 +1,3 @@
 export default {
-    dbs: "mongoose://localhost:27017/moviedb"
+    dbs: "mongodb://localhost:27017/moviedb"
 };

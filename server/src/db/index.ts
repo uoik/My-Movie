@@ -1,8 +1,14 @@
 import Mongoose from "mongoose";
-import MovieSchema from "./MovieSchema";
+import MovieModel from "./MovieSchema";
 
 Mongoose.connect("mongodb://localhost:27017/moviedb", {
-    useNewUrlParser: true
-}).then(() => console.log("已连接数据库"));
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+});
 
-export { MovieSchema };
+const db = Mongoose.connection;
+db.on("error", () => console.log("连接失败"));
+db.once("open", () => console.log("连接成功"));
+db.once("close", () => console.log("数据库已断开链接"));
+
+export { MovieModel };

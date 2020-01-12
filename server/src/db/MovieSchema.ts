@@ -1,7 +1,7 @@
 import Mongoose from "mongoose";
 import { Movie } from "../entities/Movie";
 
-interface IMovie extends Movie, Mongoose.Document {}
+export interface IMovie extends Movie, Mongoose.Document {}
 
 const Schema = Mongoose.Schema; // 创建一个数据库模型, 类似Mysql的数据表格
 
@@ -17,7 +17,7 @@ const MovieSchema = new Schema<IMovie>({
     description: String,
     poster: String
 }, {
-    versionKey: true // 版本控制
+    versionKey: false // 版本控制
 });
 
 export default Mongoose.model<IMovie>("Movie", MovieSchema);
