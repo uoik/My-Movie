@@ -1,71 +1,10 @@
-import { MovieService } from "./services/MovieService";
+import express from 'express';
+import router from './routes/MovieRoute';
 
-// const m: any = {
-//     name: '流浪地球',
-//     types: ['科幻'],
-//     areas: ['中国大陆'],
-//     timing: 120,
-//     hot: true,
-//     soon: true,
-//     classics: true
-// };
+const app = express();
 
-// MovieService.add(m).then(result => {
-//     if (Array.isArray(result)) {
-//         console.log(result);
-//     } else {
-//         console.log(result._id);
-//     }
-// });
+app.use(express.json()); // 配置中间件，用于解析请求消息中的json格式数据
 
-// for (let i = 0; i < 100; i++) {
-//     const m: any = {
-//         name: '电影名称' + i,
-//         types: ['科幻'],
-//         areas: ['中国大陆'],
-//         timing: 120,
-//         hot: i % 2 > 0,
-//         soon: i % 3 > 0,
-//         classics: i % 4 > 0
-//     };
+app.use('/api/movie', router);
 
-//     MovieService.add(m).then(result => {
-//         if (Array.isArray(result)) {
-//             console.log(result);
-//         }
-//     });
-// }
-// console.log('完成');
-
-// const m: any = {
-//     name: '撕裂末日'
-// };
-
-// MovieService.updata('5e1ad60b87a8c82688aa3fd0', m).then(result => {
-//     if (result.length > 0) {
-//         console.log(result);
-//     } else {
-//         console.log('修改成功');
-//     }
-// });
-
-// MovieService.findById("5e1ad60b87a8c82688aa3fd0").then(result => {
-//     if (!result) {
-//         return;
-//     }
-//     console.log(result);
-// });
-
-// MovieService.remove("5e1ad60b87a8c82688aa3fd0").then(() => {
-//     console.log("删除成功");
-// });
-
-// const searchCondition: any = {
-//     page: 1,
-//     limit: 5,
-//     key: '0'
-// };
-
-// MovieService.find(searchCondition).then(result => {
-//     console.log(result);
-// });
+app.listen('3333', () => console.log("服务器连接成功"));
