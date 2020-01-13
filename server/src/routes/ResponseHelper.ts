@@ -29,7 +29,7 @@ export class ResponseHelper {
     public static sendData(data: any, res: Response) {
         res.send({
             error: null,
-            datas: data
+            data
         });
     }
 
@@ -44,8 +44,8 @@ export class ResponseHelper {
         } else {
             res.send({
                 total: result.total,
-                datas: result.datas,
-                error: []
+                data: result.datas,
+                error: null
             });
         }
     }

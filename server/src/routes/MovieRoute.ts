@@ -4,26 +4,26 @@ import { MovieService } from '../services/MovieService';
 
 const router = express.Router();
 
-router.get('/:id', async (rep, res) => {
+router.get('/:id', async (req, res) => {
     try {
-        const data = await MovieService.findById(rep.params.id);
+        const data = await MovieService.findById(req.params.id);
         ResponseHelper.sendData(data, res);
     } catch {
         ResponseHelper.sendData(null, res);
     }
 });
 
-router.get('/', async (rep, res) => {
+router.get('/', async (req, res) => {
     try {
-        const data = await MovieService.find(rep.query);
+        const data = await MovieService.find(req.query);
         ResponseHelper.sendPageData(data, res);
     } catch {
         ResponseHelper.sendError('查询条件错误', res);
     }
 });
 
-router.post('/', async (rep, res) => {
-    const data = await MovieService.add(rep.body);
+router.post('/', async (req, res) => {
+    const data = await MovieService.add(req.body);
     if (Array.isArray(data)) {
         ResponseHelper.sendError(data, res);
     } else {
@@ -31,9 +31,9 @@ router.post('/', async (rep, res) => {
     }
 });
 
-router.put('/:id', async (rep, res) => {
+router.put('/:id', async (req, res) => {
     try {
-        const result = await MovieService.updata(rep.params.id, rep.body);
+        const result = await MovieService.updata(req.params.id, req.body);
         if (result.length > 0) {
             ResponseHelper.sendError(result, res);
         } else {
@@ -44,9 +44,9 @@ router.put('/:id', async (rep, res) => {
     }
 });
 
-router.delete('/:id', async (rep, res) => {
+router.delete('/:id', async (req, res) => {
     try {
-        await MovieService.remove(rep.params.id);
+        await MovieService.remove(req.params.id);
         ResponseHelper.sendData(true, res);
     } catch {
         ResponseHelper.sendError('ID错误', res);
