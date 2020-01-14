@@ -25,7 +25,7 @@ export class MovieService {
         return data;
     }
 
-    public static async find(condition?: ICondition): Promise<IResponsePageData<IMovie[]> | IResponseError> {
+    public static async find(condition?: ICondition): Promise<IResponsePageData<IMovie>> {
         const { data } = await axios.get('/api/movie', { params: condition });
         return data;
     }
