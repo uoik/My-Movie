@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { IMovieState } from '../redux/reducers/MovieReducer';
-import { Table, Switch, Button, Popconfirm, message } from 'antd';
-import { ColumnProps } from 'antd/lib/table';
+import { Table, Switch, Button, Popconfirm, message, Icon, Input } from 'antd';
+import { ColumnProps, PaginationConfig } from 'antd/lib/table';
 import { IMovie } from '../services/MovieService';
 import NoImg from '../assets/no.jpg';
 import { MovieSwitch } from '../services/CommonTypes';
@@ -11,12 +11,51 @@ export interface IMovieTableEvent {
     onLoad(): void,
     onChangeSwitch(type: MovieSwitch, newVal: boolean, id: string): void,
     onDelete(id: string): Promise<void>
+    onChange(pagination: PaginationConfig): void
+    onKeyChange(key: string): void
+    onSearch(): void
 }
 
 export default class MovieTable extends Component<IMovieState & IMovieTableEvent> {
 
     componentDidMount() {
         this.props.onLoad();
+    }
+
+    private getFliterDropdown(prop: Object) {
+        return (
+            <div style={{ padding: 8 }}>
+                <Input
+                    placeholder={'请输入电影名称'}
+                    value={this.props.condition.key}
+                    style={{ width: 188, marginBottom: 8, display: 'block' }}
+                    onChange={e => this.props.onKeyChange(e.target.value)}
+                    onPressEnter={this.props.onSearch}
+                />
+                <Button
+                    type="primary"
+                    icon="search"
+                    size="small"
+                    onClick={this.props.onSearch}
+                    style={{ width: 90, marginRight: 8 }}
+                >
+                    搜索
+            </Button>
+                <Button
+                    size="small"
+                    style={{ width: 90 }}
+                    icon="redo"
+                    onClick={
+                        () => {
+                            this.props.onKeyChange('');
+                            this.props.onSearch();
+                        }
+                    }
+                >
+                    重置
+            </Button>
+            </div>
+        )
     }
 
     private getColums(): ColumnProps<IMovie>[] {
@@ -32,7 +71,12 @@ export default class MovieTable extends Component<IMovieState & IMovieTableEvent
                     }
                 }
             },
-            { title: '电影名称', dataIndex: 'name' },
+            {
+                title: '电影名称',
+                dataIndex: 'name',
+                filterDropdown: p => this.getFliterDropdown(p),
+                filterIcon: <Icon type="search" />
+            },
             {
                 title: '类型',
                 dataIndex: 'types',
@@ -114,9 +158,27 @@ export default class MovieTable extends Component<IMovieState & IMovieTableEvent
         ]
     }
 
+    private handlePage(): false | PaginationConfig {
+        if (this.props.total === 0) return false;
+        return {
+            current: this.props.condition.page,
+            pageSize: this.props.condition.limit,
+            total: this.props.total
+        }
+    }
+
     render() {
         return (
-            <Table rowKey='_id' columns={this.getColums()} dataSource={this.props.data} />
+            <Table
+                rowKey='_id'
+                columns={this.getColums()}
+                dataSource={this.props.data}
+                loading={this.props.isLoading}
+                pagination={this.handlePage()}
+                onChange={(pagination) => {
+                    this.props.onChange(pagination);
+                }}
+            />
         )
     }
 }

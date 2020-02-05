@@ -13,8 +13,8 @@ function mapDispatchToProps(dispatch: Dispatch<any>): IMovieTableEvent {
         onLoad() {
             dispatch(MovieAction.fetchMovies({
                 page: 1,
-                limit: 100,
-                key: ''
+                limit: 10,
+                key: '10'
             }))
         },
         onChangeSwitch(type, newVal, id) {
@@ -22,6 +22,21 @@ function mapDispatchToProps(dispatch: Dispatch<any>): IMovieTableEvent {
         },
         async onDelete(id) {
             await dispatch(MovieAction.deleteMovie(id));
+        },
+        onChange(pagination){
+            dispatch(MovieAction.fetchMovies({
+                page: pagination.current
+            }))
+        },
+        onKeyChange(key){
+            dispatch(MovieAction.setConditionAction({
+                key
+            }))
+        },
+        onSearch(){
+            dispatch(MovieAction.fetchMovies({
+                page: 1
+            }))
         }
     }
 }
