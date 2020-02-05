@@ -9,7 +9,7 @@ export default class extends React.Component<RouteComponentProps<IParams>> {
     render() {
         console.log(this.props.match.params.id);
         return (
-            <h1>修改电影</h1>
+            <h1>修改电影{this.props.match.params.id}</h1>
         );
     }
 }

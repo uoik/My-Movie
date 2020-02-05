@@ -19,3 +19,9 @@ export interface ICondition {
     limit?: number;
     key?: string;
 }
+
+export enum MovieSwitch {
+    isHot = 'isHot',
+    isSoon = 'isSoon',
+    isClassic = 'isClassic'
+}

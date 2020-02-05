@@ -11,9 +11,9 @@ const MovieSchema = new Schema<IMovie>({
     types: [String],
     areas: [String],
     timing: Number,
-    hot: Boolean,
-    soon: Boolean,
-    classics: Boolean,
+    isHot: Boolean,
+    isSoon: Boolean,
+    isClassic: Boolean,
     description: String,
     poster: String
 }, {

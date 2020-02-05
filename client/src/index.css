@@ -11,3 +11,18 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.container{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+}
+
+.container .content{
+  padding: 1em;
+}
+
+.poster{
+  width: 50px;
+  border: 2px solid #fff;
+}

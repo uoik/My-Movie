@@ -1,6 +1,6 @@
 import { IMovie } from "../../services/MovieService";
 import { ICondition } from "../../services/CommonTypes";
-import { MovieActions, SetMovieAction, SetConditionAction, SetLoadingAction, DeleteMovieAction } from "../actions/MovieAction";
+import { MovieActions, SetMovieAction, SetConditionAction, SetLoadingAction, DeleteMovieAction, CheckedSwitchAction } from "../actions/MovieAction";
 import { Reducer } from "react";
 
 export type Condition = Required<ICondition>;
@@ -86,6 +86,24 @@ const deleteMovie: MovieReducer<DeleteMovieAction> = (state, action) => {
     }
 }
 
+const checkedSwitch: MovieReducer<CheckedSwitchAction> = (state, action) => {
+    // 找到对应ID的电影对象
+    const movie = state.data.find(d => d._id === action.payload.id);
+    if (!movie) return state;
+    // 克隆对象并更改类型
+    const newMovie = { ...movie };
+    newMovie[action.payload.type] = action.payload.newVal;
+    // 将新对象重新放入数组
+    const newData = state.data.map(d => {
+        if (d._id === action.payload.id) return newMovie;
+        else return d;
+    })
+    return {
+        ...state,
+        data: newData
+    }
+}
+
 export default function (state: IMovieState = defaultState, action: MovieActions) {
     switch (action.type) {
         case '_setMovie':
@@ -96,6 +114,8 @@ export default function (state: IMovieState = defaultState, action: MovieActions
             return setLoading(state, action);
         case '_deleteMovie':
             return deleteMovie(state, action);
+        case '_checkedSwitch':
+            return checkedSwitch(state, action);
         default:
             return state;
     }

@@ -1,9 +1,29 @@
-import React from "react";
+import MovieTable, { IMovieTableEvent } from '../../components/MovieTable';
+import { connect } from 'react-redux';
+import { IRootReducer } from "../../redux/store";
+import { Dispatch } from 'react';
+import MovieAction from '../../redux/actions/MovieAction';
 
-export default class extends React.Component {
-    render() {
-        return (
-            <h1>电影列表</h1>
-        );
+function mapStoreToProps(store: IRootReducer) {
+    return store.movie;
+}
+
+function mapDispatchToProps(dispatch: Dispatch<any>): IMovieTableEvent {
+    return {
+        onLoad() {
+            dispatch(MovieAction.fetchMovies({
+                page: 1,
+                limit: 100,
+                key: ''
+            }))
+        },
+        onChangeSwitch(type, newVal, id) {
+            dispatch(MovieAction.checkedSwitchMovie(type, newVal, id));
+        },
+        async onDelete(id) {
+            await dispatch(MovieAction.deleteMovie(id));
+        }
     }
 }
+
+export default connect(mapStoreToProps, mapDispatchToProps)(MovieTable);

@@ -1,6 +1,6 @@
 import { IsNotEmpty, ArrayMinSize, IsInt, Min, Max, IsArray, validate } from "class-validator";
 import "reflect-metadata";
-import { Type, plainToClass } from "class-transformer";
+import { Type } from "class-transformer";
 import { BaseEnitity } from "./BaseEnitity";
 
 // 开发电影实体类
@@ -30,15 +30,15 @@ export class Movie extends BaseEnitity {
 
     @IsNotEmpty({ message: "是否热映不能为空" })
     @Type(() => Boolean)
-    public hot: boolean; // 是否正在热映
+    public isHot: boolean; // 是否正在热映
 
     @IsNotEmpty({ message: "是否即将上映不能为空" })
     @Type(() => Boolean)
-    public soon: boolean; // 即将上映
+    public isSoon: boolean; // 即将上映
 
     @IsNotEmpty({ message: "是否为经典影片不能为空" })
     @Type(() => Boolean)
-    public classics: boolean; // 经典影片
+    public isClassic: boolean; // 经典影片
 
     public description?: string; // 影片简介
 

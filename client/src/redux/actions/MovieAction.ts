@@ -1,6 +1,6 @@
 import { IMovie, MovieService } from "../../services/MovieService";
 import { IAction } from "./ActionTypes";
-import { ICondition } from "../../services/CommonTypes";
+import { ICondition, MovieSwitch } from "../../services/CommonTypes";
 import { ThunkAction } from 'redux-thunk';
 import { IRootReducer } from "../store";
 
@@ -54,9 +54,32 @@ function deleteMovieAction(id: string): DeleteMovieAction {
     };
 };
 
-export type MovieActions = SetMovieAction | SetConditionAction | SetLoadingAction | DeleteMovieAction;
+/**
+ * 更改开关状态
+ */
+export type CheckedSwitchAction = IAction<'_checkedSwitch', {
+    type: MovieSwitch
+    newVal:boolean
+    id: string
+}>;
+function checkedSwitchAction(type: MovieSwitch, newVal:boolean, id: string): CheckedSwitchAction {
+    return {
+        type: '_checkedSwitch',
+        payload: {
+            type,
+            newVal,
+            id
+        }
+    }
+}
+
+export type MovieActions = SetMovieAction | SetConditionAction | SetLoadingAction | DeleteMovieAction | CheckedSwitchAction;
 
 // 副作用处理
+/**
+ * 请求数据
+ * @param condition 条件
+ */
 function fetchMovies(condition: ICondition): ThunkAction<Promise<void>, IRootReducer, any, MovieActions> {
     return async (dispatch, getState) => {
         dispatch(setLoadingAction(true)); // 设置加载状态
@@ -68,11 +91,26 @@ function fetchMovies(condition: ICondition): ThunkAction<Promise<void>, IRootRed
     }
 }
 
+/**
+ * 根据ID删除数据
+ * @param id 
+ */
 function deleteMovie(id: string): ThunkAction<Promise<void>, IRootReducer, any, MovieActions> {
     return async dispatch => {
         dispatch(setLoadingAction(true)); // 设置加载状态
         await MovieService.delete(id); // 根据ID删除数据库数据
         dispatch(deleteMovieAction(id)); // 根据ID删除仓库数据
+        dispatch(setLoadingAction(false)); // 设置加载状态
+    }
+}
+
+function checkedSwitchMovie(type: MovieSwitch, newVal:boolean, id: string): ThunkAction<Promise<void>, IRootReducer, any, MovieActions> {
+    return async dispatch => {
+        dispatch(setLoadingAction(true)); // 设置加载状态
+        await MovieService.updata(id, {
+            [type]: newVal
+        }) // 更新服务器数据
+        dispatch(checkedSwitchAction(type, newVal, id)); // 更改仓库数据
         dispatch(setLoadingAction(false)); // 设置加载状态
     }
 }
@@ -83,5 +121,6 @@ export default {
     setLoadingAction,
     deleteMovieAction,
     fetchMovies,
-    deleteMovie
+    deleteMovie,
+    checkedSwitchMovie
 };

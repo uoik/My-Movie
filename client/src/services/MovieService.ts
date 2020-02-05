@@ -7,9 +7,9 @@ export interface IMovie {
     types: string[];
     areas: string[];
     timing: number;
-    hot: boolean;
-    soon: boolean;
-    classics: boolean;
+    isHot: boolean;
+    isSoon: boolean;
+    isClassic: boolean;
     description?: string;
     poster?: string;
 }

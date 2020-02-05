@@ -1,6 +1,7 @@
 import express from 'express';
 import MovieRouter from './routes/MovieRoute';
 import UploadRouter from './routes/UploadRoute';
+import { MovieService } from './services/MovieService';
 
 const app = express();
 

@@ -1,13 +1,17 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route} from 'react-router-dom';
-import { Layout } from './pages/Layout';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { store } from './redux/store';
+import { LayoutComp } from './pages/Layout';
 
 const App: React.FC = () => {
   return (
-    <Router>
-      <Route path='/' component={Layout}></Route>
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <Route path='/' component={LayoutComp}></Route>
+      </Router>
+    </Provider>
   );
 }
 
