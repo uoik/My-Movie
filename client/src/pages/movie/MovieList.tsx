@@ -14,7 +14,7 @@ function mapDispatchToProps(dispatch: Dispatch<any>): IMovieTableEvent {
             dispatch(MovieAction.fetchMovies({
                 page: 1,
                 limit: 10,
-                key: '10'
+                key: ''
             }))
         },
         onChangeSwitch(type, newVal, id) {
