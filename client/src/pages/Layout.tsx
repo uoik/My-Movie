@@ -4,16 +4,24 @@ import Home from './Home';
 import MovieList from './movie/MovieList';
 import AddMovie from './movie/AddMovie';
 import EditMovie from './movie/EditMovie';
+import LoginBtn from '../components/loginBtn';
 import { Layout, Menu } from 'antd';
 
 const { Header, Sider, Content } = Layout;
 
 export const LayoutComp: React.FC = function () {
+
+    function logout(history: any) {
+        localStorage.removeItem('user');
+        history.push('/login');
+    }
+
     return (
         <div className='container'>
             <Layout>
                 <Header className='header'>
-                    <NavLink to='/'>猫眼电影管理系统</NavLink>
+                    <NavLink to='/'>电影后台管理系统</NavLink>
+                    <LoginBtn logout={logout} />
                 </Header>
                 <Layout>
                     <Sider>

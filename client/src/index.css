@@ -12,17 +12,48 @@ code {
     monospace;
 }
 
-.container{
+.container, .loginPage{
   width: 100vw;
   height: 100vh;
   display: flex;
 }
 
-.container .content{
+.container .content {
   padding: 1em;
 }
 
-.poster{
+.header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.poster {
   width: 50px;
   border: 2px solid #fff;
+}
+
+.loginPage{
+  background: gray;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginContainer{
+  width: 620px;
+  height: 340px;
+  background: #fff;
+  border-radius: 15px;
+  padding: 50px;
+  box-shadow: 0 0 8px #333;
+}
+
+.loginContainer > h1{
+  text-align: center;
+}
+
+.account{
+  color: #fff;
+  margin-right: 10px;
+  font-size: 16px;
 }

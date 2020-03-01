@@ -25,3 +25,8 @@ export enum MovieSwitch {
     isSoon = 'isSoon',
     isClassic = 'isClassic'
 }
+
+export interface IAccount{
+    phone: string;
+    password: string;
+}
