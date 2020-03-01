@@ -1,6 +1,7 @@
 import express from 'express';
 import MovieRouter from './routes/MovieRoute';
 import UploadRouter from './routes/UploadRoute';
+import LoginRouter from './routes/LoginRoute';
 import history from 'connect-history-api-fallback';
 
 const app = express();
@@ -9,6 +10,9 @@ app.use(express.json()); // 配置中间件，用于解析请求消息中的json
 
 // 电影增删改查
 app.use('/api/movie', MovieRouter);
+
+// 账号验证
+app.use('/api/login', LoginRouter);
 
 // 图片上传
 app.use('/api/upload', UploadRouter);

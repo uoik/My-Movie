@@ -1,3 +1,3 @@
-export default {
-    dbs: "mongodb://localhost:27017/moviedb"
+export const config = {
+    movieDB: "mongodb://localhost:27017/moviedb"
 };

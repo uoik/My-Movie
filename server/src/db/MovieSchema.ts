@@ -3,7 +3,7 @@ import { Movie } from "../entities/Movie";
 
 export interface IMovie extends Movie, Mongoose.Document {}
 
-const Schema = Mongoose.Schema; // 创建一个数据库模型, 类似Mysql的数据表格
+const Schema = Mongoose.Schema; // 创建一个数据库集合, 类似Mysql的数据表格
 
 // 模型骨架, 类似数据表格中的每一项数据
 const MovieSchema = new Schema<IMovie>({

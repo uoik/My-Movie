@@ -3,6 +3,7 @@ import { Movie } from "../entities/Movie";
 import { MovieModel } from '../db';
 import { SearchCondition } from "../entities/SearchCondition";
 import { ISearchResult } from "../entities/CommonTypes";
+import { BaseEnitity } from "../entities/BaseEnitity";
 
 export class MovieService {
     /**
